@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goriber TopUp - Gaming Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --accent: #ffb703;
+            --bg-dark: #070f1e;
+            --card-bg: #111d33;
+            --text-main: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); padding-bottom: 50px; }
+
+        .banner-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 3px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Features Bar */
+        .features-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #0a1526;
+            padding: 10px 5px;
+            border-bottom: 1px solid #1e2d4a;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            gap: 2px;
+        }
+
+        .feature-item span {
+            font-size: 1.1rem;
+        }
+
+        .feature-item strong {
+            color: var(--primary);
+        }
+
+        .container { max-width: 500px; margin: 15px auto; padding: 0 15px; }
+
+        .cat-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 15px 0 10px;
+            color: var(--primary);
+            border-left: 4px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 2px solid #1e2d4a;
+            border-radius: 10px;
+            padding: 15px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .category-card:hover, .category-card:active {
+            border-color: var(--primary);
+            background: rgba(0, 210, 255, 0.15);
+        }
+
+        .category-icon { font-size: 2rem; }
+        .category-name { font-weight: 700; font-size: 0.85rem; color: #fff; }
+
+        .back-btn {
+            background: #1e2d4a;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid #1e2d4a;
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .grid-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid #1e2d4a;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card.active { border-color: var(--primary); background: rgba(0, 210, 255, 0.15); }
+        .card-title { font-weight: 700; font-size: 0.9rem; }
+        .card-price { color: var(--accent); font-weight: 700; margin-top: 4px; font-size: 0.95rem; }
+
+        .payment-methods { display: flex; gap: 10px; margin-bottom: 10px; }
+        .pay-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid #1e2d4a;
+            border-radius: 8px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pay-btn.active { border-color: var(--accent); background: rgba(255, 183, 3, 0.15); }
+
+        .payment-info {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px dashed var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00d2ff, #0072ff);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 210, 255, 0.4);
+            margin-bottom: 15px;
+        }
+
+        .btn-support {
+            width: 100%;
+            padding: 12px;
+            background: #25D366;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="banner-container">
+        <img src="logo.png" alt="Goriber TopUp Banner" class="banner-img">
+    </div>
+
+    <!-- 24 Hours & Features Bar -->
+    <div class="features-bar">
+        <div class="feature-item">
+            <span>⚡</span>
+            <strong>ফাস্ট টপআপ</strong>
+        </div>
+        <div class="feature-item">
+            <span>🛡️</span>
+            <strong>১০০% সেফ</strong>
+        </div>
+        <div class="feature-item">
+            <span>🎧</span>
+            <strong>২৪ ঘণ্টা চালু</strong>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Main Category View -->
+        <div id="categoryView">
+            <div class="cat-title">অফার ক্যাটাগরি বেছে নিন</div>
+            <div class="category-grid">
+                <div class="category-card" onclick="openCategory('diamond')">
+                    <div class="category-icon">💎</div>
+                    <div class="category-name">UID TopUp</div>
+                </div>
+                <div class="category-card" onclick="openCategory('weekly')">
+                    <div class="category-icon">📅</div>
+                    <div class="category-name">Weekly</div>
+                </div>
+                <div class="category-card" onclick="openCategory('monthly')">
+                    <div class="category-icon">📆</div>
+                    <div class="category-name">Monthly</div>
+                </div>
+                <div class="category-card" onclick="openCategory('combo')">
+                    <div class="category-icon">💥</div>
+                    <div class="category-name">Combo Offers</div>
+                </div>
+                <div class="category-card" onclick="openCategory('levelup')">
+                    <div class="category-icon">🚀</div>
+                    <div class="category-name">Level Up Pass</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selected Category Packages View -->
+        <div id="packageView" class="hidden">
+            <button class="back-btn" onclick="showCategories()">⬅ অন্য ক্যাটাগরি দেখুন</button>
+            
+            <div class="cat-title">১. প্লেয়ার আইডি দিন</div>
+            <div class="input-group">
+                <input type="number" id="playerUid" placeholder="Free Fire Player ID (UID) দিন">
+            </div>
+
+            <div class="cat-title">২. প্যাকেজ বেছে নিন</div>
+
+            <!-- Diamond Group -->
+            <div id="group-diamond" class="grid-cards pkg-group hidden">
+                <div class="card" onclick="selectPackage(this, '25 Diamond', 22)"><div class="card-title">25 Diamond 💎</div><div class="card-price">৳ ২২</div></div>
+                <div class="card" onclick="selectPackage(this, '50 Diamond', 36)"><div class="card-title">50 Diamond 💎</div><div class="card-price">৳ ৩৬</div></div>
+                <div class="card" onclick="selectPackage(this, '115 Diamond', 79)"><div class="card-title">115 Diamond 💎</div><div class="card-price">৳ ৭৯</div></div>
+                <div class="card" onclick="selectPackage(this, '240 Diamond', 158)"><div class="card-title">240 Diamond 💎</div><div class="card-price">৳ ১৫৮</div></div>
+                <div class="card" onclick="selectPackage(this, '355 Diamond', 237)"><div class="card-title">355 Diamond 💎</div><div class="card-price">৳ ২৩৭</div></div>
+                <div class="card" onclick="selectPackage(this, '480 Diamond', 316)"><div class="card-title">480 Diamond 💎</div><div class="card-price">৳ ৩১৬</div></div>
+                <div class="card" onclick="selectPackage(this, '505 Diamond', 336)"><div class="card-title">505 Diamond 💎</div><div class="card-price">৳ ৩৩৬</div></div>
+                <div class="card" onclick="selectPackage(this, '610 Diamond', 400)"><div class="card-title">610 Diamond 💎</div><div class="card-price">৳ ৪০০</div></div>
+                <div class="card" onclick="selectPackage(this, '850 Diamond', 558)"><div class="card-title">850 Diamond 💎</div><div class="card-price">৳ ৫৫৮</div></div>
+                <div class="card" onclick="selectPackage(this, '1090 Diamond', 716)"><div class="card-title">1090 Diamond 💎</div><div class="card-price">৳ ৭১৬</div></div>
+                <div class="card" onclick="selectPackage(this, '1240 Diamond', 800)"><div class="card-title">1240 Diamond 💎</div><div class="card-price">৳ ৮০০</div></div>
+                <div class="card" onclick="selectPackage(this, '1720 Diamond', 1116)"><div class="card-title">1720 Diamond 💎</div><div class="card-price">৳ ১১১৬</div></div>
+                <div class="card" onclick="selectPackage(this, '2090 Diamond', 1358)"><div class="card-title">2090 Diamond 💎</div><div class="card-price">৳ ১৩৫৮</div></div>
+                <div class="card" onclick="selectPackage(this, '2530 Diamond', 1610)"><div class="card-title">2530 Diamond 💎</div><div class="card-price">৳ ১৬১০</div></div>
+                <div class="card" onclick="selectPackage(this, '4010 Diamond', 2568)"><div class="card-title">4010 Diamond 💎</div><div class="card-price">৳ ২৫৬৮</div></div>
+                <div class="card" onclick="selectPackage(this, '5060 Diamond', 3220)"><div class="card-title">5060 Diamond 💎</div><div class="card-price">৳ ৩২২০</div></div>
+                <div class="card" onclick="selectPackage(this, '10120 Diamond', 6440)"><div class="card-title">10120 Diamond 💎</div><div class="card-price">৳ ৬৪৪০</div></div>
+            </div>
+
+            <!-- Weekly Group -->
+            <div id="group-weekly" class="grid-cards pkg-group hidden">
+                <div class="card" onclick="selectPackage(this, 'Weekly', 158)"><div class="card-title">Weekly</div><div class="card-price">৳ ১৫৮</div></div>
+                <div class="card" onclick="selectPackage(this, 'WEEKLY 2X', 316)"><div class="card-title">WEEKLY 2X</div><div class="card-price">৳ ৩১৬</div></div>
+                <div class="card" onclick="selectPackage(this, 'WEEKLY 3X', 474)"><div class="card-title">WEEKLY 3X</div><div class="card-price">৳ ৪৭৪</div></div>
+                <div class="card" onclick="selectPackage(this, 'Weekly 4X', 632)"><div class="card-title">Weekly 4X</div><div class="card-price">৳ ৬৩২</div></div>
+                <div class="card" onclick="selectPackage(this, 'Weekly 5X', 790)"><div class="card-title">Weekly 5X</div><div class="card-price">৳ ৭৯০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Weekly 8X', 1264)"><div class="card-title">Weekly 8X</div><div class="card-price">৳ ১২৬৪</div></div>
+                <div class="card" onclick="selectPackage(this, 'Weekly 10X', 1580)"><div class="card-title">Weekly 10X</div><div class="card-price">৳ ১৫৮০</div></div>
+            </div>
+
+            <!-- Monthly Group -->
+            <div id="group-monthly" class="grid-cards pkg-group hidden">
+                <div class="card" onclick="selectPackage(this, 'Monthly', 790)"><div class="card-title">Monthly</div><div class="card-price">৳ ৭৯০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Monthly 2X', 1580)"><div class="card-title">Monthly 2X</div><div class="card-price">৳ ১৫৮০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Monthly 3X', 2370)"><div class="card-title">Monthly 3X</div><div class="card-price">৳ ২৩৭০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Monthly 4X', 3160)"><div class="card-title">Monthly 4X</div><div class="card-price">৳ ৩১৬০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Monthly 5X', 3950)"><div class="card-title">Monthly 5X</div><div class="card-price">৳ ৩৯৫০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Monthly 8X', 6320)"><div class="card-title">Monthly 8X</div><div class="card-price">৳ ৬৩২০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Monthly 10X', 7900)"><div class="card-title">Monthly 10X</div><div class="card-price">৳ ৭৯০০</div></div>
+            </div>
+
+            <!-- Combo Group -->
+            <div id="group-combo" class="grid-cards pkg-group hidden">
+                <div class="card" onclick="selectPackage(this, '1x Weekly + 1x Monthly', 948)"><div class="card-title">1x Weekly + 1x Monthly</div><div class="card-price">৳ ৯৪৮</div></div>
+                <div class="card" onclick="selectPackage(this, '2x Weekly + 2x Monthly', 1896)"><div class="card-title">2x Weekly + 2x Monthly</div><div class="card-price">৳ ১৮৯৬</div></div>
+                <div class="card" onclick="selectPackage(this, '3x Weekly + 3x Monthly', 2844)"><div class="card-title">3x Weekly + 3x Monthly</div><div class="card-price">৳ ২৮৪৪</div></div>
+                <div class="card" onclick="selectPackage(this, '4x Weekly + 1x Monthly', 1422)"><div class="card-title">4x Weekly + 1x Monthly</div><div class="card-price">৳ ১৪২২</div></div>
+                <div class="card" onclick="selectPackage(this, '4x Weekly + 2x Monthly', 2212)"><div class="card-title">4x Weekly + 2x Monthly</div><div class="card-price">৳ ২২১২</div></div>
+            </div>
+
+            <!-- Level Up Group -->
+            <div id="group-levelup" class="grid-cards pkg-group hidden">
+                <div class="card" onclick="selectPackage(this, 'Level Up Pass All (1270 Diamond)', 450)"><div class="card-title">Level Up Pass All</div><div class="card-price">৳ ৪৫০</div></div>
+                <div class="card" onclick="selectPackage(this, 'Level 6 (120 Diamond)', 43)"><div class="card-title">Level 6 (120💎)</div><div class="card-price">৳ ৪৩</div></div>
+                <div class="card" onclick="selectPackage(this, 'Level 10 (200 Diamond)', 75)"><div class="card-title">Level 10 (200💎)</div><div class="card-price">৳ ৭৫</div></div>
+                <div class="card" onclick="selectPackage(this, 'Level 15 (200 Diamond)', 75)"><div class="card-title">Level 15 (200💎)</div><div class="card-price">৳ ৭৫</div></div>
+                <div class="card" onclick="selectPackage(this, 'Level 20 (200 Diamond)', 75)"><div class="card-title">Level 20 (200💎)</div><div class="card-price">৳ ৭৫</div></div>
+                <div class="card" onclick="selectPackage(this, 'Level 25 (200 Diamond)', 75)"><div class="card-title">Level 25 (200💎)</div><div class="card-price">৳ ৭৫</div></div>
+                <div class="card" onclick="selectPackage(this, 'Level 30 (350 Diamond)', 105)"><div class="card-title">Level 30 (350💎)</div><div class="card-price">৳ ১০৫</div></div>
+            </div>
+
+            <div class="cat-title">৩. পেমেন্ট মেথড</div>
+            <div class="payment-methods">
+                <div class="pay-btn" onclick="selectPayment('bKash', '01750427959', this)">bKash</div>
+                <div class="pay-btn" onclick="selectPayment('Nagad', '01750427959', this)">Nagad</div>
+            </div>
+
+            <div class="payment-info" id="payDetails">পেমেন্ট মেথড বেছে নিন</div>
+
+            <div class="input-group">
+                <input type="text" id="txnId" placeholder="Transaction ID (TrxID) বসান">
+            </div>
+
+            <button class="btn-submit" onclick="submitOrder()">WhatsApp-এ অর্ডার পাঠান 🚀</button>
+        </div>
+
+        <a href="https://wa.me/8801750427959?text=হ্যালো%20ভাই,%20আমার%20হেল্প%20লাগবে!" target="_blank" class="btn-support">
+            💬 24/7 WhatsApp Support
+        </a>
+    </div>
+
+    <script>
+        let selectedPkg="", selectedPrice=0, selectedPayMethod="";
+
+        function openCategory(catId) {
+            document.getElementById("categoryView").classList.add("hidden");
+            document.getElementById("packageView").classList.remove("hidden");
+            
+            document.querySelectorAll(".pkg-group").forEach(el => el.classList.add("hidden"));
+            document.getElementById("group-" + catId).classList.remove("hidden");
+            
+            selectedPkg = "";
+            selectedPrice = 0;
+            document.querySelectorAll(".card").forEach(el => el.classList.remove("active"));
+        }
+
+        function showCategories() {
+            document.getElementById("packageView").classList.add("hidden");
+            document.getElementById("categoryView").classList.remove("hidden");
+        }
+
+        function selectPackage(e, t, a) {
+            document.querySelectorAll(".card").forEach(el => el.classList.remove("active"));
+            e.classList.add("active");
+            selectedPkg = t;
+            selectedPrice = a;
+        }
+
+        function selectPayment(e, t, a) {
+            document.querySelectorAll(".pay-btn").forEach(el => el.classList.remove("active"));
+            a.classList.add("active");
+            selectedPayMethod = e;
+            document.getElementById("payDetails").innerHTML = `<b>${e} Personal Number:</b><br><span style="color:var(--primary);font-size:1.2rem;font-weight:bold">${t}</span><br><small>টাকা Send Money করে TrxID বসান।</small>`;
+        }
+
+        function submitOrder() {
+            const e = document.getElementById("playerUid").value;
+            const t = document.getElementById("txnId").value;
+            if(!e) return alert("UID দিন!");
+            if(!selectedPkg) return alert("অফার সিলেক্ট করুন!");
+            if(!selectedPayMethod) return alert("পেমেন্ট মেথড বেছে নিন!");
+            if(!t) return alert("TrxID দিন!");
+
+            const a = "8801750427959";
+            const n = `🔥 *NEW TOP-UP ORDER* 🔥%0A%0A👤 *UID:* ${e}%0A💎 *Package:* ${selectedPkg}%0A💰 *Price:* ৳${selectedPrice}%0A💳 *Payment:* ${selectedPayMethod}%0A🧾 *TrxID:* ${t}%0A%0Aতারাতারি ডায়মন্ড পাঠায় দেন ভাই!`;
+            window.open(`https://wa.me/${a}?text=${n}`, "_blank");
+        }
+    </script>
+</body>
+</html>
